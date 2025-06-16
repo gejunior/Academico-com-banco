@@ -10,14 +10,15 @@ import modelo.Aluno;
  *
  * @author Genilson Junior
  */
-public class DadosAluno extends javax.swing.JFrame {
+public class DadosAluno extends javax.swing.JDialog {
 
     /**
      * Creates new form DadosAluno
      */
     private boolean salvou = false;
     
-    public DadosAluno() {
+    public DadosAluno(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -249,7 +250,15 @@ public class DadosAluno extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DadosAluno().setVisible(true);
+                DadosAluno dialog = new DadosAluno(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+                
             }
         });
     }

@@ -4,6 +4,16 @@
  */
 package visao;
 
+import controledao.ControleAluno;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Aluno;
+
 /**
  *
  * @author Aluno
@@ -13,10 +23,29 @@ public class ManutencaoAluno extends javax.swing.JFrame {
     /**
      * Creates new form ManutencaoAluno
      */
-    public ManutencaoAluno() {
+    private ControleAluno controle = new ControleAluno();
+    
+    private List<Aluno> listaAlunos = new ArrayList<>();
+    public ManutencaoAluno() throws SQLException {
+        listaAlunos = controle.listarTodos();
+        setLocationRelativeTo(null);
         initComponents();
+        try {
+            atualizarTabela();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro no acesso do banco");
+        }
     }
 
+    private void atualizarTabela() throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tabAlunos.getModel();
+        
+        modelo.setRowCount(0);
+        
+        for(Aluno a: listaAlunos){
+            modelo.addRow(new Object[] {a.getProntuario(), a.getNome(), a.getAno_ingresso(), a.getSigla_curso()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,10 +165,23 @@ public class ManutencaoAluno extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botSairActionPerformed
 
+    
+    
     private void botIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botIncluirActionPerformed
-//        DadosAluno tela = new DadosAluno(this, true);
-//        tela.setVisible(true);
-        
+        DadosAluno tela = new DadosAluno(this, true);
+        tela.setVisible(true);
+        if(tela.getSalvou()){
+            Aluno a = tela.getAluno();
+            try {
+                controle.inserir(a);
+                listaAlunos = controle.listarTodos();
+                atualizarTabela();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao acessar o banco");
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Não foi possível salvar!");
+        }
     }//GEN-LAST:event_botIncluirActionPerformed
 
     /**
@@ -172,7 +214,11 @@ public class ManutencaoAluno extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManutencaoAluno().setVisible(true);
+                try {
+                    new ManutencaoAluno().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ManutencaoCurso.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

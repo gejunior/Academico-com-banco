@@ -245,6 +245,7 @@ public class ManutencaoCurso extends javax.swing.JFrame {
 
     private void atualizarTabela() throws SQLException{
         DefaultTableModel modelo = (DefaultTableModel) tabCursos.getModel();
+        
                 
         modelo.setRowCount(0);
         

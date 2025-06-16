@@ -28,7 +28,7 @@ public class GerenteConexao {
         Connection conexao = null;
         try {
             // estabelece cponexão com o banco de dados
-            conexao = DriverManager.getConnection(urlBanco, "root", "ifsp");
+            conexao = DriverManager.getConnection(urlBanco, "root", "");
             // retira o autcommit da conexão
             conexao.setAutoCommit(false);
         } catch (SQLException ex) {
