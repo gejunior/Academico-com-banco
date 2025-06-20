@@ -225,7 +225,6 @@ public class ManutencaoAluno extends javax.swing.JFrame {
         if(linha != -1){
             DadosAluno tela = new DadosAluno(this, true);
             tela.setAluno(listaAlunos.get(linha));
-            
             tela.setVisible(true);
         }else {
             JOptionPane.showMessageDialog(this, "Selecione um aluno!");

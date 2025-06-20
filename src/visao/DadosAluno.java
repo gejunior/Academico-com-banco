@@ -30,6 +30,7 @@ public class DadosAluno extends javax.swing.JDialog {
         initComponents();
 //        preencherBox();
         this.setLocationRelativeTo(null);
+        txtSiglaCurso.setVisible(false);
     }
     
     public void preencherBox(){
@@ -48,8 +49,10 @@ public class DadosAluno extends javax.swing.JDialog {
     public void setAluno(Aluno a){
         txtPront.setText(a.getProntuario());
         txtNome.setText(a.getNome());
-        txtAnoIngresso.setText(String.valueOf(a.getAno_ingresso()));
-        boxCurso.setSelectedItem(a.getSigla_curso());
+        txtAnoIngresso.setText(String.valueOf(a.getAno_ingresso()));//transforma integer -> string
+//        txtSiglaCurso.setText(a.getSigla_curso());
+//        boxCurso.setSelectedItem(a.getSigla_curso());
+        boxCurso.addItem(a.getSigla_curso());
     }
     
     public Aluno getAluno(){
@@ -57,6 +60,7 @@ public class DadosAluno extends javax.swing.JDialog {
         a.setProntuario(txtPront.getText());
         a.setNome(txtNome.getText());
         a.setAno_ingresso(Integer.parseInt(txtAnoIngresso.getText()));
+//        a.setSigla_curso(txtSiglaCurso.getText());
         a.setSigla_curso(String.valueOf(boxCurso.getSelectedItem()));
         return a;
     }
@@ -84,8 +88,8 @@ public class DadosAluno extends javax.swing.JDialog {
         txtPront = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtAnoIngresso = new javax.swing.JTextField();
-        txtSiglaCurso = new javax.swing.JTextField();
         boxCurso = new javax.swing.JComboBox<>();
+        txtSiglaCurso = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         botSalvar = new javax.swing.JButton();
         botCancelar = new javax.swing.JButton();
@@ -131,15 +135,15 @@ public class DadosAluno extends javax.swing.JDialog {
             }
         });
 
-        txtSiglaCurso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSiglaCursoActionPerformed(evt);
-            }
-        });
-
         boxCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxCursoActionPerformed(evt);
+            }
+        });
+
+        txtSiglaCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSiglaCursoActionPerformed(evt);
             }
         });
 
@@ -155,13 +159,11 @@ public class DadosAluno extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(txtPront, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtAnoIngresso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(txtSiglaCurso, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(30, 30, 30)
-                        .addComponent(boxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAnoIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtSiglaCurso, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(boxCurso, javax.swing.GroupLayout.Alignment.LEADING, 0, 112, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -182,10 +184,10 @@ public class DadosAluno extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSiglaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(boxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(boxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSiglaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         botSalvar.setText("Salvar");
@@ -216,11 +218,11 @@ public class DadosAluno extends javax.swing.JDialog {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botSalvar)
                     .addComponent(botCancelar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,8 +239,8 @@ public class DadosAluno extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
