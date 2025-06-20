@@ -48,9 +48,8 @@ public class DadosAluno extends javax.swing.JDialog {
     public void setAluno(Aluno a){
         txtPront.setText(a.getProntuario());
         txtNome.setText(a.getNome());
-        txtAnoIngresso.setText(String.valueOf(a.getAno_ingresso()));//transforma integer -> string
-//        txtSiglaCurso.setText(a.getSigla_curso());
-        boxCurso.addItem(a.getSigla_curso());
+        txtAnoIngresso.setText(String.valueOf(a.getAno_ingresso()));
+        boxCurso.setSelectedItem(a.getSigla_curso());
     }
     
     public Aluno getAluno(){
@@ -58,7 +57,6 @@ public class DadosAluno extends javax.swing.JDialog {
         a.setProntuario(txtPront.getText());
         a.setNome(txtNome.getText());
         a.setAno_ingresso(Integer.parseInt(txtAnoIngresso.getText()));
-//        a.setSigla_curso(txtSiglaCurso.getText());
         a.setSigla_curso(String.valueOf(boxCurso.getSelectedItem()));
         return a;
     }
@@ -262,7 +260,6 @@ public class DadosAluno extends javax.swing.JDialog {
         //verificar se campos estão vazios:
             if(pront.equals("") || nome.equals("") || ano.equals("")){
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
-                return;
             }else {
                 salvou = true;
                 setVisible(false);

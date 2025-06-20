@@ -237,16 +237,18 @@ public class ManutencaoAluno extends javax.swing.JFrame {
         if(linha != -1){
             DadosAluno tela = new DadosAluno(this, true);
             tela.setAluno(listaAlunos.get(linha));
-            
             tela.preencherBox();
             tela.setVisible(true);
+            Aluno a = tela.getAluno();
+            System.out.println(a.toString());
             
             try {
                 controle.alterar(tela.getAluno());
                 listaAlunos = controle.listarTodos();
                 atualizarTabela();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Erro no SQL");
+//                JOptionPane.showMessageDialog(this, "Erro no SQL");
+                JOptionPane.showMessageDialog(this, ex.getMessage());
             } catch (NotExistException ex) {
                 Logger.getLogger(ManutencaoAluno.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -68,7 +68,7 @@ public class ControleAluno {
     public void alterar (Aluno a) throws SQLException, NotExistException{
         Connection conexao = GerenteConexao.getConexao();
         
-        String comandoSQL = "update aluno set pront = ?, nome = ?, ano_ingresso = ?, sigla_curso = ?";
+        String comandoSQL = "update aluno set pront = ?, nome = ?, ano_ingresso = ?, sigla_curso = ? where pront = ?";
         
         PreparedStatement execSQL;
         
@@ -78,6 +78,7 @@ public class ControleAluno {
         execSQL.setString(2, a.getNome());
         execSQL.setInt(3, a.getAno_ingresso());
         execSQL.setString(4, a.getSigla_curso());
+        execSQL.setString(5, a.getProntuario());
         
         int quantAlterados = execSQL.executeUpdate();
         
