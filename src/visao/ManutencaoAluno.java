@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Aluno;
+import modelo.exceptions.NotExistException;
 
 /**
  *
@@ -27,8 +28,8 @@ public class ManutencaoAluno extends javax.swing.JFrame {
     
     private List<Aluno> listaAlunos = new ArrayList<>();
     public ManutencaoAluno() throws SQLException {
+        this.setLocationRelativeTo(null);
         listaAlunos = controle.listarTodos();
-        setLocationRelativeTo(null);
         initComponents();
         try {
             atualizarTabela();
@@ -118,12 +119,27 @@ public class ManutencaoAluno extends javax.swing.JFrame {
         jPanel2.add(botIncluir);
 
         botAlterar.setText("Alterar");
+        botAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botAlterarActionPerformed(evt);
+            }
+        });
         jPanel2.add(botAlterar);
 
         botExcluir.setText("Excluir");
+        botExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botExcluirActionPerformed(evt);
+            }
+        });
         jPanel2.add(botExcluir);
 
         botVisualizar.setText("Visualizar");
+        botVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botVisualizarActionPerformed(evt);
+            }
+        });
         jPanel2.add(botVisualizar);
 
         botSair.setText("Sair");
@@ -183,6 +199,59 @@ public class ManutencaoAluno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não foi possível salvar!");
         }
     }//GEN-LAST:event_botIncluirActionPerformed
+
+    private void botExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botExcluirActionPerformed
+        // TODO add your handling code here:
+        int linha = tabAlunos.getSelectedRow();
+        if(linha != -1){
+            try {
+                controle.excluir(listaAlunos.get(linha).getProntuario());
+                listaAlunos = controle.listarTodos();
+                atualizarTabela();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Não foi possível acessar o banco!");
+            } catch (NotExistException ex) {
+                JOptionPane.showMessageDialog(this, "Prontuário não existe!");
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha!");
+        }
+    }//GEN-LAST:event_botExcluirActionPerformed
+
+    private void botVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botVisualizarActionPerformed
+        // TODO add your handling code here:
+        int linha = tabAlunos.getSelectedRow();
+        if(linha != -1){
+            DadosAluno tela = new DadosAluno(this, true);
+            tela.setAluno(listaAlunos.get(linha));
+            
+            tela.setVisible(true);
+        }else {
+            JOptionPane.showMessageDialog(this, "Selecione um aluno!");
+        }
+    }//GEN-LAST:event_botVisualizarActionPerformed
+
+    private void botAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botAlterarActionPerformed
+        int linha = tabAlunos.getSelectedRow();
+        if(linha != -1){
+            DadosAluno tela = new DadosAluno(this, true);
+            tela.setAluno(listaAlunos.get(linha));
+            
+            tela.setVisible(true);
+            
+            try {
+                controle.alterar(tela.getAluno());
+                listaAlunos = controle.listarTodos();
+                atualizarTabela();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro no SQL");
+            } catch (NotExistException ex) {
+                Logger.getLogger(ManutencaoAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione um aluno!");
+        }
+    }//GEN-LAST:event_botAlterarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -29,8 +29,9 @@ public class ManutencaoCurso extends javax.swing.JFrame {
     private List<Curso> listaCursos = new ArrayList<>();
     
     public ManutencaoCurso() throws SQLException {
+        this.setLocationRelativeTo(null);
         listaCursos = controle.listarTodos();
-        setLocationRelativeTo(null);
+        
         initComponents();
         try {
             atualizarTabela();
@@ -239,7 +240,7 @@ public class ManutencaoCurso extends javax.swing.JFrame {
             
             tela.setVisible(true);
         }else {
-            JOptionPane.showMessageDialog(this, "Nenhuma linha selecionada!");
+            JOptionPane.showMessageDialog(this, "Nenhum curso selecionado!");
         }
     }//GEN-LAST:event_botVisualizarActionPerformed
 

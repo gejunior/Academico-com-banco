@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package visao;
 
@@ -13,15 +13,16 @@ import modelo.Aluno;
 public class DadosAluno extends javax.swing.JDialog {
 
     /**
-     * Creates new form DadosAluno
+     * Creates new form DadosAluno2
      */
     private boolean salvou = false;
     
     public DadosAluno(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
-
+    
     public void setAluno(Aluno a){
         txtPront.setText(a.getProntuario());
         txtNome.setText(a.getNome());
@@ -41,6 +42,7 @@ public class DadosAluno extends javax.swing.JDialog {
     public boolean getSalvou (){
         return salvou;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,7 +67,7 @@ public class DadosAluno extends javax.swing.JDialog {
         botSalvar = new javax.swing.JButton();
         botCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 102));
 
@@ -122,7 +124,7 @@ public class DadosAluno extends javax.swing.JDialog {
                         .addComponent(txtAnoIngresso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                         .addComponent(txtSiglaCurso, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,12 +187,9 @@ public class DadosAluno extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,15 +209,15 @@ public class DadosAluno extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProntActionPerformed
 
-    private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_botCancelarActionPerformed
-
     private void botSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botSalvarActionPerformed
         // TODO add your handling code here:
         salvou = true;
         setVisible(false);
     }//GEN-LAST:event_botSalvarActionPerformed
+
+    private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_botCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,8 +245,9 @@ public class DadosAluno extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(DadosAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 DadosAluno dialog = new DadosAluno(new javax.swing.JFrame(), true);
@@ -258,7 +258,6 @@ public class DadosAluno extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
-                
             }
         });
     }

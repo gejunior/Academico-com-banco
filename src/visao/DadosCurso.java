@@ -21,6 +21,7 @@ public class DadosCurso extends javax.swing.JDialog {
     public DadosCurso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public boolean getSalvou(){
