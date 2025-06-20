@@ -185,6 +185,7 @@ public class ManutencaoAluno extends javax.swing.JFrame {
     
     private void botIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botIncluirActionPerformed
         DadosAluno tela = new DadosAluno(this, true);
+        tela.preencherBox();
         tela.setVisible(true);
         if(tela.getSalvou()){
             Aluno a = tela.getAluno();
@@ -237,6 +238,7 @@ public class ManutencaoAluno extends javax.swing.JFrame {
             DadosAluno tela = new DadosAluno(this, true);
             tela.setAluno(listaAlunos.get(linha));
             
+            tela.preencherBox();
             tela.setVisible(true);
             
             try {

@@ -4,8 +4,15 @@
  */
 package visao;
 
+import controledao.ControleCurso;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Aluno;
+import modelo.Curso;
+import modelo.exceptions.NotExistException;
 
 /**
  *
@@ -21,14 +28,29 @@ public class DadosAluno extends javax.swing.JDialog {
     public DadosAluno(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+//        preencherBox();
         this.setLocationRelativeTo(null);
+    }
+    
+    public void preencherBox(){
+        ControleCurso controle = new ControleCurso();
+        try {
+            boxCurso.addItem("Selecionar");
+            List<Curso> cursos = controle.listarTodos();
+            for (Curso curso : cursos) {//preencher box de cursos
+                boxCurso.addItem(curso.getSigla());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DadosAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void setAluno(Aluno a){
         txtPront.setText(a.getProntuario());
         txtNome.setText(a.getNome());
         txtAnoIngresso.setText(String.valueOf(a.getAno_ingresso()));//transforma integer -> string
-        txtSiglaCurso.setText(a.getSigla_curso());
+//        txtSiglaCurso.setText(a.getSigla_curso());
+        boxCurso.addItem(a.getSigla_curso());
     }
     
     public Aluno getAluno(){
@@ -36,7 +58,8 @@ public class DadosAluno extends javax.swing.JDialog {
         a.setProntuario(txtPront.getText());
         a.setNome(txtNome.getText());
         a.setAno_ingresso(Integer.parseInt(txtAnoIngresso.getText()));
-        a.setSigla_curso(txtSiglaCurso.getText());
+//        a.setSigla_curso(txtSiglaCurso.getText());
+        a.setSigla_curso(String.valueOf(boxCurso.getSelectedItem()));
         return a;
     }
     
@@ -64,6 +87,7 @@ public class DadosAluno extends javax.swing.JDialog {
         txtNome = new javax.swing.JTextField();
         txtAnoIngresso = new javax.swing.JTextField();
         txtSiglaCurso = new javax.swing.JTextField();
+        boxCurso = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         botSalvar = new javax.swing.JButton();
         botCancelar = new javax.swing.JButton();
@@ -109,6 +133,18 @@ public class DadosAluno extends javax.swing.JDialog {
             }
         });
 
+        txtSiglaCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSiglaCursoActionPerformed(evt);
+            }
+        });
+
+        boxCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxCursoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -121,9 +157,12 @@ public class DadosAluno extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(txtPront, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtAnoIngresso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                        .addComponent(txtSiglaCurso, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtAnoIngresso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(txtSiglaCurso, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(30, 30, 30)
+                        .addComponent(boxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -145,7 +184,9 @@ public class DadosAluno extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSiglaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSiglaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -211,23 +252,49 @@ public class DadosAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_txtProntActionPerformed
 
     private void botSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botSalvarActionPerformed
-        //verificar se campos estão vazios:
         String pront = txtPront.getText();
         String nome = txtPront.getText();
-        String curso = txtSiglaCurso.getText();
         String ano = txtAnoIngresso.getText();
+        String curso = (String)boxCurso.getSelectedItem();
         
-        if(pront.equals("") || nome.equals("") || ano.equals("") || curso.equals("")){
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
-        }else {
-            salvou = true;
-            setVisible(false);
+        try {
+            new ControleCurso().pesquisar(curso);
+        //verificar se campos estão vazios:
+            if(pront.equals("") || nome.equals("") || ano.equals("")){
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+                return;
+            }else {
+                salvou = true;
+                setVisible(false);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (NotExistException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_botSalvarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_botCancelarActionPerformed
+
+    private void txtSiglaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSiglaCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSiglaCursoActionPerformed
+
+    private void boxCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCursoActionPerformed
+        // TODO add your handling code here:
+//        ControleCurso controle = new ControleCurso();
+//        try {
+//            List<Curso> cursos = controle.listarTodos();
+//            for (Curso curso : cursos) {//preencher box de cursos
+//                boxCurso.addItem(curso.getSigla());
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DadosAluno.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }//GEN-LAST:event_boxCursoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,6 +342,7 @@ public class DadosAluno extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botCancelar;
     private javax.swing.JButton botSalvar;
+    private javax.swing.JComboBox<String> boxCurso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
