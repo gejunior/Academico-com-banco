@@ -211,7 +211,6 @@ public class DadosAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_txtProntActionPerformed
 
     private void botSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botSalvarActionPerformed
-        // TODO add your handling code here:
         //verificar se campos estão vazios:
         String pront = txtPront.getText();
         String nome = txtPront.getText();

@@ -4,6 +4,7 @@
  */
 package visao;
 
+import javax.swing.JOptionPane;
 import modelo.Curso;
 
 /**
@@ -164,9 +165,16 @@ public class DadosCurso extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void botSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botSalvarActionPerformed
-        // TODO add your handling code here:
-        salvou = true;
-        setVisible(false);
+        String sigla = txtSigla.getText();
+        String nome = txtNome.getText();
+        String cood = txtCoordenador.getText();
+        
+        if(sigla.equals("") || nome.equals("") || cood.equals("")){
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+        }else {
+            salvou = true;
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_botSalvarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
