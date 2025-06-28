@@ -4,6 +4,16 @@
  */
 package visao;
 
+import controledao.ControleUsuario;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.Usuario;
+import modelo.exceptions.NotExistException;
+
 /**
  *
  * @author Genilson Junior
@@ -13,7 +23,12 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    private ControleUsuario controle = new ControleUsuario();
+    
+    private List<Usuario> listaUsuarios = new ArrayList<>();
+    
     public Login() {
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -58,6 +73,11 @@ public class Login extends javax.swing.JFrame {
         );
 
         botEntrar.setText("Entrar");
+        botEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botEntrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Usuário:");
 
@@ -80,15 +100,15 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsuario)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(botCadastrar)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                                 .addComponent(botEntrar))
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(txtSenha))))
+                            .addComponent(txtSenha)
+                            .addComponent(txtUsuario))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -115,7 +135,28 @@ public class Login extends javax.swing.JFrame {
 
     private void botCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCadastrarActionPerformed
         // TODO add your handling code here:
+        Cadastrar tela = new Cadastrar(this, true);
+        tela.setVisible(true);
     }//GEN-LAST:event_botCadastrarActionPerformed
+
+    private void botEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botEntrarActionPerformed
+        // TODO add your handling code here:
+        Usuario novo = new Usuario(txtUsuario.getText(), txtSenha.getText());
+        
+        try {
+            controle.pesquisar(novo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro na pesquisa do banco! erro: " + ex.getMessage());
+        } catch (NotExistException ex) {
+            JOptionPane.showMessageDialog(this, "Usuario não encontrado!");
+        }
+        
+        
+        //Se tudo ocorrer bem
+        Home tela = new Home();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botEntrarActionPerformed
 
     /**
      * @param args the command line arguments

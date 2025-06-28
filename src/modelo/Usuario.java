@@ -8,16 +8,30 @@ package modelo;
  * @author Genilson Junior
  */
 public class Usuario {
+    private static int contador = 0;
+    private int ID;
     private String usuario;
     private String senha;
     private String papel;
 
-    public Usuario(String usuario, String senha, String papel) {
+    public Usuario() {}
+
+    public Usuario(String usuario, String senha) {
+        contador += 1;
+        ID = contador;
         this.usuario = usuario;
         this.senha = senha;
-        this.papel = papel;
+        this.papel = "simples";
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
     public String getUsuario() {
         return usuario;
     }

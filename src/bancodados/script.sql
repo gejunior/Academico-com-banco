@@ -1,4 +1,5 @@
-create database academico;
+
+create database if not exists academico;
 USE academico;
 
 CREATE TABLE curso (
@@ -23,6 +24,8 @@ create table usuario (
     primary key (id)
 );
 
+insert into usuario values ("admin", "93218", "admin");
+
 INSERT INTO curso VALUES ("BCC", 
         "Bacharelado em Ciência da Computação",
         "Kleber" );
@@ -37,3 +40,8 @@ INSERT INTO curso VALUES ("ADS",
         "Andrea" );
 
 UPDATE curso SET coordenador="Vilson", nome="dfsdfsfsdfsfs" WHERE sigla="ADS";
+update aluno set sigla_curso = "ADS" where pront="pe3015564";
+
+select * from aluno a join curso c on a.sigla_curso = c.sigla;
+
+delete from aluno where pront = "pe3015564";
