@@ -160,9 +160,21 @@ public class Cadastrar extends javax.swing.JDialog {
 
     private void botCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCadastrarActionPerformed
         // TODO add your handling code here:
-        Usuario u = new Usuario(txtUsuario.getText(), txtSenha.getText());
+        String user = txtUsuario.getText();
+        String passWord = new String(txtSenha.getPassword());
+        String ConfirmpassWord = new String(txtConfirmarSenha.getPassword());
+        Usuario u = new Usuario(user, passWord);
         try {
-            controle.inserir(u);
+            
+            if(!passWord.equals(ConfirmpassWord)){
+                JOptionPane.showMessageDialog(this, "senhas diferentes!");
+                return;
+            }else {
+                System.out.println(u.toString());
+                controle.inserir(u);
+                JOptionPane.showMessageDialog(this, "Usuario cadastrado com sucesso!");
+            }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Não foi possível cadastrar usuario!");
         }

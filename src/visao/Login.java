@@ -28,7 +28,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         this.setLocationRelativeTo(null);
         initComponents();
-        botCadastrar.setVisible(false);
+//        botCadastrar.setVisible(false);
     }
 
     /**

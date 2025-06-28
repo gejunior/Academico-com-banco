@@ -20,7 +20,7 @@ public class ControleUsuario {
         // criar a string contendo o SQL
         try (Connection conexao = GerenteConexao.getConexao()) {
             // criar a string contendo o SQL
-            String comandoSQL = "insert into usuario (usuario, senha, papel)"
+            String comandoSQL = "insert into usuario (user, senha, papel)"
                     + " values(?, ?, ?)";
             // Preparar a string para execução do SQL
             PreparedStatement execSQL;
