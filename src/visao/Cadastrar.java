@@ -28,6 +28,7 @@ public class Cadastrar extends javax.swing.JDialog {
     
     public Cadastrar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -46,10 +47,10 @@ public class Cadastrar extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
         botVoltar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtConfirmarSenha = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
+        txtConfirmarSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,9 +119,9 @@ public class Cadastrar extends javax.swing.JDialog {
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel3)
-                                .addComponent(txtSenha)
-                                .addComponent(txtUsuario)
-                                .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))))
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                .addComponent(txtConfirmarSenha)
+                                .addComponent(txtSenha)))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -220,8 +221,8 @@ public class Cadastrar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtConfirmarSenha;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtConfirmarSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

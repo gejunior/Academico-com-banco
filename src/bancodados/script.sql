@@ -15,16 +15,18 @@ create table aluno (
     sigla_curso varchar(3),
     foreign key (sigla_curso) references curso(sigla)
 );
-
+drop table usuario;
 create table usuario (
-    id int auto_increment,
-    usuario varchar (30),
+    /*id int,*/
+    user varchar (30),
     senha varchar (8),
     papel varchar (20),
-    primary key (id)
+    primary key (user)
 );
 
 insert into usuario values ("admin", "93218", "admin");
+select * from usuario where user = 'admin';
+
 
 INSERT INTO curso VALUES ("BCC", 
         "Bacharelado em Ciência da Computação",

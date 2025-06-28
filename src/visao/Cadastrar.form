@@ -39,9 +39,9 @@
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUsuario" alignment="0" pref="228" max="32767" attributes="0"/>
+                              <Component id="txtConfirmarSenha" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtUsuario" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtConfirmarSenha" alignment="0" pref="228" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -133,8 +133,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsuarioActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSenha">
-    </Component>
     <Component class="javax.swing.JButton" name="botVoltar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Voltar"/>
@@ -148,7 +146,9 @@
         <Property name="text" type="java.lang.String" value="Confirmar senha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtConfirmarSenha">
+    <Component class="javax.swing.JPasswordField" name="txtSenha">
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="txtConfirmarSenha">
     </Component>
   </SubComponents>
 </Form>

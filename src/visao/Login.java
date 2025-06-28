@@ -8,8 +8,6 @@ import controledao.ControleUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 import modelo.exceptions.NotExistException;
@@ -47,8 +45,8 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
         botCadastrar = new javax.swing.JButton();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,8 +105,8 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(botEntrar))
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(txtSenha)
-                            .addComponent(txtUsuario))))
+                            .addComponent(txtUsuario)
+                            .addComponent(txtSenha))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -121,7 +119,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -141,21 +139,29 @@ public class Login extends javax.swing.JFrame {
 
     private void botEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botEntrarActionPerformed
         // TODO add your handling code here:
-        Usuario novo = new Usuario(txtUsuario.getText(), txtSenha.getText());
-        
+//        Usuario autenticado = null;
+        String userAutenticado = txtUsuario.getText();
+        String senhaAutenticado  = new String(txtSenha.getPassword());
         try {
-            controle.pesquisar(novo);
+            Usuario autenticado = new Usuario();
+            
+            
+            autenticado = controle.pesquisar(userAutenticado, senhaAutenticado);
+            System.out.println(autenticado.toString());
+            
+//            if(autenticado != null){
+                //Se tudo ocorrer bem
+                JOptionPane.showMessageDialog(this, "Bem-vindo(a), " + autenticado.getUsuario());
+                Home tela = new Home();
+                tela.setVisible(true);
+                this.dispose();
+//            }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro na pesquisa do banco! erro: " + ex.getMessage());
         } catch (NotExistException ex) {
             JOptionPane.showMessageDialog(this, "Usuario não encontrado!");
         }
-        
-        
-        //Se tudo ocorrer bem
-        Home tela = new Home();
-        tela.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_botEntrarActionPerformed
 
     /**
@@ -200,7 +206,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

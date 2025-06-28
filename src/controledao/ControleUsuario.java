@@ -40,18 +40,19 @@ public class ControleUsuario {
         }
     }
     
-    public Usuario pesquisar (Usuario u) throws SQLException, NotExistException{
+    public Usuario pesquisar (String user, String passWord) throws SQLException, NotExistException{
         Usuario a = null;
+        System.out.println(user + " " + passWord);
         
         Connection conexao = GerenteConexao.getConexao();
         
-        String comandoSQL = "select * from usuario where id = ?";
+        String comandoSQL = "select * from usuario where user = ?";
         
         PreparedStatement execSQL;
         
         execSQL = conexao.prepareStatement(comandoSQL);
         
-        execSQL.setInt(1, u.getID());
+        execSQL.setString(1, user);
         
         ResultSet resultadoConsulta;
         
@@ -60,7 +61,7 @@ public class ControleUsuario {
         
         if(resultadoConsulta.getRow() > 0){
             a = new Usuario();
-            a.setUsuario(resultadoConsulta.getString("usuario"));
+            a.setUsuario(resultadoConsulta.getString("user"));
             a.setSenha(resultadoConsulta.getString("senha"));
             a.setPapel(resultadoConsulta.getString("papel"));
         }else {
@@ -70,5 +71,24 @@ public class ControleUsuario {
         execSQL.close();
         conexao.close();
         return a;
+    }
+    
+    public boolean verificarSenha(Usuario u) throws SQLException{
+        Connection conexao = GerenteConexao.getConexao();
+        
+        String comandoSQL = "select * from usuario where usuario = ?";
+        
+        PreparedStatement execSQL;
+        
+        execSQL = conexao.prepareStatement(comandoSQL);
+        
+        execSQL.setString(1, u.getUsuario());
+        
+        ResultSet resultadoConsulta;
+        
+        resultadoConsulta = execSQL.executeQuery();
+        resultadoConsulta.last();
+        return true;
+        
     }
 }

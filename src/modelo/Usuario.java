@@ -8,8 +8,8 @@ package modelo;
  * @author Genilson Junior
  */
 public class Usuario {
-    private static int contador = 0;
-    private int ID;
+//    private static int contador = 0;
+//    private int ID;
     private String usuario;
     private String senha;
     private String papel;
@@ -17,20 +17,21 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String usuario, String senha) {
-        contador += 1;
-        ID = contador;
+//        contador += 1;
+//        ID = contador;
+//        this.ID = -1;
         this.usuario = usuario;
         this.senha = senha;
         this.papel = "simples";
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+//    public int getID() {
+//        return ID;
+//    }
+//
+//    public void setID(int ID) {
+//        this.ID = ID;
+//    }
     
     public String getUsuario() {
         return usuario;
@@ -60,5 +61,4 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "usuario=" + usuario + ", senha=" + senha + ", papel=" + papel + '}';
     }
-    
 }
