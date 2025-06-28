@@ -21,7 +21,9 @@ public class VisaoCurso {
         }
         // driver já foi carregado, dessa forma é possível fazer a conexão 
         // com o banco de dados Mysql
-        Home tela = new Home();
-        tela.setVisible(true);
+        Login log = new Login();
+        log.setVisible(true);
+//        Home tela = new Home();
+//        tela.setVisible(true);
     }
 }

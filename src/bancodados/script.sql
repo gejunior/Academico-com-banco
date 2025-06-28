@@ -15,6 +15,14 @@ create table aluno (
     foreign key (sigla_curso) references curso(sigla)
 );
 
+create table usuario (
+    id int auto increment,
+    usuario varchar (30),
+    senha varchar (8),
+    papel varchar (20),
+    primary key (id)
+);
+
 INSERT INTO curso VALUES ("BCC", 
         "Bacharelado em Ciência da Computação",
         "Kleber" );
