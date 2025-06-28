@@ -42,17 +42,17 @@ public class ControleUsuario {
     
     public Usuario pesquisar (String user, String passWord) throws SQLException, NotExistException{
         Usuario a = null;
-        System.out.println(user + " " + passWord);
         
         Connection conexao = GerenteConexao.getConexao();
         
-        String comandoSQL = "select * from usuario where user = ?";
+        String comandoSQL = "select * from usuario where user = ? and senha = ?";
         
         PreparedStatement execSQL;
         
         execSQL = conexao.prepareStatement(comandoSQL);
         
         execSQL.setString(1, user);
+        execSQL.setString(2, passWord);
         
         ResultSet resultadoConsulta;
         

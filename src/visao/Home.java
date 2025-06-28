@@ -7,6 +7,7 @@ package visao;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -115,7 +116,15 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botSairActionPerformed
-        this.dispose();
+        int resultado = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
+        
+        if(resultado == JOptionPane.YES_OPTION){
+            this.dispose();
+            JOptionPane.showMessageDialog(this, "Até breve!", "até mais :(", JOptionPane.YES_OPTION);
+            Login tela = new Login();
+            tela.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_botSairActionPerformed
 
     private void botAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botAlunoActionPerformed

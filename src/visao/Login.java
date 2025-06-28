@@ -140,22 +140,24 @@ public class Login extends javax.swing.JFrame {
     private void botEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botEntrarActionPerformed
         // TODO add your handling code here:
 //        Usuario autenticado = null;
+        
         String userAutenticado = txtUsuario.getText();
         String senhaAutenticado  = new String(txtSenha.getPassword());
+        
+        if(userAutenticado.equals("") || senhaAutenticado.equals("")){
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+            return;
+        }
+        
         try {
             Usuario autenticado = new Usuario();
             
-            
             autenticado = controle.pesquisar(userAutenticado, senhaAutenticado);
-            System.out.println(autenticado.toString());
             
-//            if(autenticado != null){
-                //Se tudo ocorrer bem
-                JOptionPane.showMessageDialog(this, "Bem-vindo(a), " + autenticado.getUsuario());
-                Home tela = new Home();
-                tela.setVisible(true);
-                this.dispose();
-//            }
+            JOptionPane.showMessageDialog(this, "Bem-vindo(a), " + autenticado.getUsuario());
+            Home tela = new Home();
+            tela.setVisible(true);
+            this.dispose();
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro na pesquisa do banco! erro: " + ex.getMessage());
