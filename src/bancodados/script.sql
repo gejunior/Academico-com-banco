@@ -25,8 +25,10 @@ create table usuario (
 );
 
 insert into usuario values ("admin", "93218", "admin");
-select * from usuario where user = 'admin';
+insert into usuario (user, senha, papel) values("junin","1234","simples");
 
+select * from usuario where user = 'admin' and senha = '9321';
+select * from usuario;
 
 INSERT INTO curso VALUES ("BCC", 
         "Bacharelado em Ciência da Computação",
