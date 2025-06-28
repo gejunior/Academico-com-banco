@@ -16,7 +16,7 @@ create table aluno (
 );
 
 create table usuario (
-    id int auto increment,
+    id int auto_increment,
     usuario varchar (30),
     senha varchar (8),
     papel varchar (20),
